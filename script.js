@@ -1,57 +1,59 @@
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3);
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
+function calculateLove(){
 
-.container{
-    background:white;
-    padding:30px;
-    border-radius:20px;
-    text-align:center;
-    width:350px;
-    box-shadow:0 0 20px rgba(0,0,0,0.2);
-}
+    let boy =
+    document.getElementById("boy").value.trim();
 
-input{
-    width:90%;
-    padding:12px;
-    margin:10px 0;
-    border-radius:10px;
-    border:1px solid #ccc;
-}
+    let girl =
+    document.getElementById("girl").value.trim();
 
-button{
-    padding:12px 25px;
-    border:none;
-    border-radius:10px;
-    background:#ff3366;
-    color:white;
-    cursor:pointer;
-    font-size:16px;
-}
+    if(boy === "" || girl === ""){
+        alert("Please enter both names");
+        return;
+    }
 
-button:hover{
-    transform:scale(1.05);
-}
+    document.getElementById("loading").style.display="block";
+    document.getElementById("result").innerHTML="";
 
-.heart{
-    font-size:80px;
-    animation:beat 1s infinite;
-}
+    setTimeout(function(){
 
-@keyframes beat{
-    0%{transform:scale(1);}
-    50%{transform:scale(1.3);}
-    100%{transform:scale(1);}
-}
+        let combined = (boy + girl).toLowerCase();
 
-#result{
-    margin-top:20px;
-    font-size:22px;
-    font-weight:bold;
+        let total = 0;
+
+        for(let i=0;i<combined.length;i++){
+            total += combined.charCodeAt(i);
+        }
+
+        let score = total % 101;
+
+        let emoji = "";
+        let message = "";
+
+        if(score >= 90){
+            emoji = "😍❤️🥰";
+            message = "Soulmates";
+        }
+        else if(score >= 70){
+            emoji = "💕😍";
+            message = "Perfect Match";
+        }
+        else if(score >= 50){
+            emoji = "😊❤️";
+            message = "Good Connection";
+        }
+        else if(score >= 30){
+            emoji = "🙂";
+            message = "Can Become Better";
+        }
+        else{
+            emoji = "💔😅";
+            message = "Need More Understanding";
+        }
+
+        document.getElementById("loading").style.display="none";
+
+        document.getElementById("result").innerHTML =
+        `${emoji}<br>${score}%<br>${message}`;
+
+    },3000);
 }
